@@ -25,3 +25,7 @@ Repo for my learnings from the LangGraph course as part of MAT496.
 ## Module 1: Video 6 (Agent)
 - Made an agent using the ReAct principle which basically feeds tool outputs back into the tool calling nodes as many times as needed and uses the previous outputs as new inputs. 
 - Changes: Replaced the arithmetic functions with string operation functions that reverse text, add text to the start of a text, etc. Changed the user instructions to match the same. Tested it in Langsmith as a trace. 
+
+## Module 1: Video 7 (Agent with Memory)
+- Made the agent remember the outputs of its previous tool calling loops, ie gave it memory. This was implemented using MemorySaver() which is a type of checkpoint in LangGraph. Using a particular thread id for each user-input tool call, we can use the memory functionality.
+- Changes: Again added my own string operation functions and using these tools, I ran the agent with memory and changed the user instructions accordingly. Also edited the agent.py file with these new tools and ran it on studio. 

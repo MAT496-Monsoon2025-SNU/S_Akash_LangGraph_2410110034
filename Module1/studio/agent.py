@@ -4,34 +4,37 @@ from langchain_openai import ChatOpenAI
 from langgraph.graph import START, StateGraph, MessagesState
 from langgraph.prebuilt import tools_condition, ToolNode
 
-def add(a: int, b: int) -> int:
-    """Adds a and b.
+def reverse_string(text: str) -> str:
+    """Reverses string.
 
     Args:
-        a: first int
-        b: second int
+        text: The string to be reversed.
     """
-    return a + b
+    return text[::-1]
 
-def multiply(a: int, b: int) -> int:
-    """Multiplies a and b.
+def add_string(text: str, salutation: str = "Here you go: ") -> str:
+    """Adds a given string to the beginning of a string.
 
     Args:
-        a: first int
-        b: second int
+        text: The main text.
+        salutation: The phrase to add at the beginning.
     """
-    return a * b
+    return salutation + text
 
-def divide(a: int, b: int) -> float:
-    """Divide a and b.
+def wrap_text_with_symbols(text: str, symbol: str = "*") -> str:
+    """wraps the given text in a specific symbol.
 
     Args:
-        a: first int
-        b: second int
+        text: The text that's being wrapped.
+        symbol: The symbol to use for wrapping, default is *
     """
-    return a / b
+    return symbol + text + symbol
 
-tools = [add, multiply, divide]
+def to_uppercase(text: str) -> str:
+    """Converts a string to uppercase"""
+    return text.upper()
+
+tools = [reverse_string, add_string, wrap_text_with_symbols, to_uppercase]
 
 # Define LLM with bound tools
 llm = ChatOpenAI(model="gpt-4o")
@@ -51,8 +54,6 @@ builder.add_node("tools", ToolNode(tools))
 builder.add_edge(START, "assistant")
 builder.add_conditional_edges(
     "assistant",
-    # If the latest message (result) from assistant is a tool call -> tools_condition routes to tools
-    # If the latest message (result) from assistant is a not a tool call -> tools_condition routes to END
     tools_condition,
 )
 builder.add_edge("tools", "assistant")
