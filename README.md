@@ -16,3 +16,8 @@ Repo for my learnings from the LangGraph course as part of MAT496.
 ## Module 1: Video 4 (Chain)
 - Relearnt tool calling. Then learnt how to use tools with graphs using a chain, ie a tool is initialized with a list of messages each comprising nodes in the graph 
 - Changes: Made my own tool calling function that returns a specific category of quotes and tested it. Also changed up the initial messages. 
+
+## Module 1: Video 5 (Router)
+- In a chain, the LLM directly calls the tool and goes to the end node of the graph. With a router, it now has the option to choose whether to call a tool (with a specific tool calling node) and then go to the end node or directly go to t the end node. Also ran this on the studio
+- Changes: Implemented the quote retrieval tool from the chain notebook. 
+- Ran the same in LangSmith studio with modifications to the router.py file with the quote retrieval tool.
