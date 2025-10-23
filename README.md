@@ -50,3 +50,7 @@ Repo for my learnings from the LangGraph course as part of MAT496.
 ## Module 2: Video 5 (Chatbot w/ Summarization and Memory)
 - Learnt how to summarize conversation history with a py function and implement it using Langgraph's checkpointers (persistence). The summary function is only called when there's more than a particular number of messages in conversation history (conditional edge for the same). This seems to be a more resource-efficient way to keep only useful information as compared to trims/filters/reducers.
 - Changed the number of messages required for the summary function to be called to 8, and extended the conversation (with a new topic on my favourite movies) to test the same. Saw all the traces in Langgraph, which are attached in the notebook itself.
+
+## Module 2: Video 6 (Chatbot with External Memory)
+- With in-memory checkpointers, once you restart the notebook, you'll lose all previous conversation history. Using an external database (in this case sqlite) fixes this as the LLM consistently fetches conversation history from the database so there is permanent persistence. This is also the most effective way to minimize token usage
+- Changes: Changed all the prompts and added a few more. Before changing the prompts, I ran the default prompts. The LLM remembers the default prompts in the output of my new prompts (reflected in the notebook) as expected. Finally used the studio files and ran chatbot.py in studio.
