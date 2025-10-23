@@ -38,3 +38,7 @@ Repo for my learnings from the LangGraph course as part of MAT496.
 ## Module 2: Video 2 (State Reducers)
 - Learnt that the way steps in a graph work is such that, when two nodes execute in parallel, by default the prior values are overwritten in the same step, so an error occurs. So reducers are brought in to fix this by adding to a list the new value along with the initial value instead of overriding the same. This can be implemented using Annotated keys
 - Changes: Similar to the first video, I used a list of movies. The foo key of type int was changed to movie key of string type. Changed the initial concatenation of integer operation to a concatenation of string operation. Changed up the questions asked while implementing add_messages and remove_messages reducers.  
+
+## Module 2: Video 3 (Multiple Schemas)
+- Learnt how to use private states to let certain nodes privately exchange information without it being in the final output. Learnt to use a custom i/o schema to filter out contents in the graph's input and output. 
+- Changes: In the demonstration of private states, I replaced the default variables of int type with movie and title_change variables of string type to carry on with the idea I had in the first two modules. Also changed up the prompts inside the input/output schema.  
