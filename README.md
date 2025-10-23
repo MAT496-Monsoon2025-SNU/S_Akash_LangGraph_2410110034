@@ -29,3 +29,8 @@ Repo for my learnings from the LangGraph course as part of MAT496.
 ## Module 1: Video 7 (Agent with Memory)
 - Made the agent remember the outputs of its previous tool calling loops, ie gave it memory. This was implemented using MemorySaver() which is a type of checkpoint in LangGraph. Using a particular thread id for each user-input tool call, we can use the memory functionality.
 - Changes: Again added my own string operation functions and using these tools, I ran the agent with memory and changed the user instructions accordingly. Also edited the agent.py file with these new tools and ran it on studio. 
+
+# Module 2
+## Module 2: Video 1 (State Schema)
+- Learnt about the different types of datatypes and typed state schemas, in specific learnt that both the TypedDict schema and the Dataclass schema do not enforce typehints at runtime so no validation error is raised even though it should be.  This was fixed using Pydantic wherein we implemented a validation error to be raised. 
+- Changes: Changed the default "mood" literal to a list of movies. Added more graph nodes as well. These changes were done thrice: in TypeDict, Dataclass and Pydantic 
