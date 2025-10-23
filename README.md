@@ -34,3 +34,7 @@ Repo for my learnings from the LangGraph course as part of MAT496.
 ## Module 2: Video 1 (State Schema)
 - Learnt about the different types of datatypes and typed state schemas, in specific learnt that both the TypedDict schema and the Dataclass schema do not enforce typehints at runtime so no validation error is raised even though it should be.  This was fixed using Pydantic wherein we implemented a validation error to be raised. 
 - Changes: Changed the default "mood" literal to a list of movies. Added more graph nodes as well. These changes were done thrice: in TypeDict, Dataclass and Pydantic 
+
+## Module 2: Video 2 (State Reducers)
+- Learnt that the way steps in a graph work is such that, when two nodes execute in parallel, by default the prior values are overwritten in the same step, so an error occurs. So reducers are brought in to fix this by adding to a list the new value along with the initial value instead of overriding the same. This can be implemented using Annotated keys
+- Changes: Similar to the first video, I used a list of movies. The foo key of type int was changed to movie key of string type. Changed the initial concatenation of integer operation to a concatenation of string operation. Changed up the questions asked while implementing add_messages and remove_messages reducers.  
