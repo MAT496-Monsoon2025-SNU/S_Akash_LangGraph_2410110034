@@ -41,4 +41,8 @@ Repo for my learnings from the LangGraph course as part of MAT496.
 
 ## Module 2: Video 3 (Multiple Schemas)
 - Learnt how to use private states to let certain nodes privately exchange information without it being in the final output. Learnt to use a custom i/o schema to filter out contents in the graph's input and output. 
-- Changes: In the demonstration of private states, I replaced the default variables of int type with movie and title_change variables of string type to carry on with the idea I had in the first two modules. Also changed up the prompts inside the input/output schema.  
+- Changes: In the demonstration of private states, I replaced the default variables of int type with movie and title_change variables of string type to carry on with the idea I had in the first two modules. Also changed up the prompts inside the input/output schema. 
+
+## Module 2: Video 4 (Trim Filter Messages)
+- Learnt how to use reducers, filters and trimmers to restrict the amount of conversation history that is fed to the model - this is to both preserve actual response time and save money used in token spending
+- Changed the prompts used to demonstrate filters and trimmers to inquire about dystopian novels. Saw the same in action as a Langsmith trace in the website
