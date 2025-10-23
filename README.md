@@ -46,3 +46,7 @@ Repo for my learnings from the LangGraph course as part of MAT496.
 ## Module 2: Video 4 (Trim Filter Messages)
 - Learnt how to use reducers, filters and trimmers to restrict the amount of conversation history that is fed to the model - this is to both preserve actual response time and save money used in token spending
 - Changed the prompts used to demonstrate filters and trimmers to inquire about dystopian novels. Saw the same in action as a Langsmith trace in the website
+
+## Module 2: Video 5 (Chatbot w/ Summarization and Memory)
+- Learnt how to summarize conversation history with a py function and implement it using Langgraph's checkpointers (persistence). The summary function is only called when there's more than a particular number of messages in conversation history (conditional edge for the same). This seems to be a more resource-efficient way to keep only useful information as compared to trims/filters/reducers.
+- Changed the number of messages required for the summary function to be called to 8, and extended the conversation (with a new topic on my favourite movies) to test the same. Saw all the traces in Langgraph, which are attached in the notebook itself.
