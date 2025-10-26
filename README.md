@@ -54,3 +54,7 @@ Repo for my learnings from the LangGraph course as part of MAT496.
 ## Module 2: Video 6 (Chatbot with External Memory)
 - With in-memory checkpointers, once you restart the notebook, you'll lose all previous conversation history. Using an external database (in this case sqlite) fixes this as the LLM consistently fetches conversation history from the database so there is permanent persistence. This is also the most effective way to minimize token usage
 - Changes: Changed all the prompts and added a few more. Before changing the prompts, I ran the default prompts. The LLM remembers the default prompts in the output of my new prompts (reflected in the notebook) as expected. Finally used the studio files and ran chatbot.py in studio.
+
+## Module 3: Video 1 (Streaming)
+- Learnt about streaming in Langgraph wherein there's two ways of which streaming updates returns only individual state updates after calling a node and streaming values returns full state up to the point of calling that node. Also learnt about .astream_events to stream tokens from the LLM which uses 4 keys, mainly event, name, data, metadata.
+- Changes: Changed convo requirement for summarize_conversation to be called from 6 to 8. Then extended .astream_events' token streaming ability to summarize_conversation. Wrote code for the same (thread id 6) with 9 human messages to test this out. Also rewrote all the prompts.
