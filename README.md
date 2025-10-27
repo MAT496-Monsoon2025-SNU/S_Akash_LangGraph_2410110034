@@ -70,3 +70,7 @@ Repo for my learnings from the LangGraph course as part of MAT496.
 ## Module 3: Video 4 (Dynamic Breakpoints)
 - Dynamic breakpoints are internal breakpoints that force the graph to break itself based on some condition already defined, using NodeInterrupt() - although NodeInterrupt now seems deprecated as we get warnings about it while using it. 
 - Changes: After interruption at step 2 wherein the input cannot be more than 5 characters, I changed it so that instead of feeding a new input, the old input gets truncated to 5 characters (using basic python) and is then fed that to graph.update_state. Added a new dynamic breakpoint at the third step that stops execution if the input is STOP (or stop/Stop/etc). Updated dynamic_breakpoints.py to reflect the same.
+
+## Module 3: Video 5 (Time Travel)
+- Learnt the concepts of replaying and forking a particular checkpoint/step. Learnt how to use get_state_history() to view the full history of the graph's states. Forking can now re-invoke the graph from a previous checkpoint to use a new input for the same, without having to re-execute the graph entirely. Replays of a graph are just re-runs of a particular checkpoint, but without executing any nodes as the graph knows if that checkpoint has been executed before.
+- Changes: Extended and changed the arithmetic operation tools, then changed up the prompts to call multiple tools at once. 
