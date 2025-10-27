@@ -63,6 +63,10 @@ Repo for my learnings from the LangGraph course as part of MAT496.
 - Learnt about the usage of breakpoints as a first step in implementing human in the loop (sometimes we need a human who approves changes before production). Specifically learnt about the ability to use interrupt_before argument in builder.compile to interrupt node execution just before a node is about to run. 
 - Changes: Added breakpoints before both assistant and tools by passing assistant to the interrupt_before argument. Tweaked user input to ask for both multiplication and addition, then added multiple breakpoints to the code that stop right before both the assistant node and the tool node for both tool calls. Tweaked builder.compile in agent.py (studio) to reflect this, output of which is in the notebook.
 
-## Module 3: Video 2 (Editing State and Human Feedback)
+## Module 3: Video 3 (Editing State and Human Feedback)
 - Previously we could only use breakpoints for interrupting node execution and approving/cancelling it. Now using graph.update_state we can also modify the graph's state by modifying the input given before the execution of that particular node. 
 - Changes: Changed the tools from arithmetic operations to string operations and changed the prompts accordingly. Then, I changed the part where the LLM awaits user input to take multiple user inputs at multiple breakpoints, each modifying the previous input (did this with a while loop). 
+
+## Module 3: Video 4 (Dynamic Breakpoints)
+- Dynamic breakpoints are internal breakpoints that force the graph to break itself based on some condition already defined, using NodeInterrupt() - although NodeInterrupt now seems deprecated as we get warnings about it while using it. 
+- Changes: After interruption at step 2 wherein the input cannot be more than 5 characters, I changed it so that instead of feeding a new input, the old input gets truncated to 5 characters (using basic python) and is then fed that to graph.update_state. Added a new dynamic breakpoint at the third step that stops execution if the input is STOP (or stop/Stop/etc). Updated dynamic_breakpoints.py to reflect the same.

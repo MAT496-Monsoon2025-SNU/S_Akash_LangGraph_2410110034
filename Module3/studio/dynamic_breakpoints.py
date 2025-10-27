@@ -19,6 +19,8 @@ def step_2(state: State) -> State:
 
 def step_3(state: State) -> State:
     print("---Step 3---")
+    if state['input'].lower() == "stop":
+        raise NodeInterrupt(f"Received instructions to stop execution immediately.")
     return state
 
 builder = StateGraph(State)
