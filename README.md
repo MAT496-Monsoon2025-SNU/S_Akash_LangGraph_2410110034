@@ -58,3 +58,7 @@ Repo for my learnings from the LangGraph course as part of MAT496.
 ## Module 3: Video 1 (Streaming)
 - Learnt about streaming in Langgraph wherein there's two ways of which streaming updates returns only individual state updates after calling a node and streaming values returns full state up to the point of calling that node. Also learnt about .astream_events to stream tokens from the LLM which uses 4 keys, mainly event, name, data, metadata.
 - Changes: Changed convo requirement for summarize_conversation to be called from 6 to 8. Then extended .astream_events' token streaming ability to summarize_conversation. Wrote code for the same (thread id 6) with 9 human messages to test this out. Also rewrote all the prompts.
+
+## Module 3: Video 2 (Breakpoints)
+- Learnt about the usage of breakpoints as a first step in implementing human in the loop (sometimes we need a human who approves changes before production). Specifically learnt about the ability to use interrupt_before argument in builder.compile to interrupt node execution just before a node is about to run. 
+- Changes: Added breakpoints before both assistant and tools by passing assistant to the interrupt_before argument. Tweaked user input to ask for both multiplication and addition, then added multiple breakpoints to the code that stop right before both the assistant node and the tool node for both tool calls. Tweaked builder.compile in agent.py (studio) to reflect this, output of which is in the notebook.
