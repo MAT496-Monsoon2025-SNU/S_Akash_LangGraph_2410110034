@@ -62,3 +62,7 @@ Repo for my learnings from the LangGraph course as part of MAT496.
 ## Module 3: Video 2 (Breakpoints)
 - Learnt about the usage of breakpoints as a first step in implementing human in the loop (sometimes we need a human who approves changes before production). Specifically learnt about the ability to use interrupt_before argument in builder.compile to interrupt node execution just before a node is about to run. 
 - Changes: Added breakpoints before both assistant and tools by passing assistant to the interrupt_before argument. Tweaked user input to ask for both multiplication and addition, then added multiple breakpoints to the code that stop right before both the assistant node and the tool node for both tool calls. Tweaked builder.compile in agent.py (studio) to reflect this, output of which is in the notebook.
+
+## Module 3: Video 2 (Editing State and Human Feedback)
+- Previously we could only use breakpoints for interrupting node execution and approving/cancelling it. Now using graph.update_state we can also modify the graph's state by modifying the input given before the execution of that particular node. 
+- Changes: Changed the tools from arithmetic operations to string operations and changed the prompts accordingly. Then, I changed the part where the LLM awaits user input to take multiple user inputs at multiple breakpoints, each modifying the previous input (did this with a while loop). 
