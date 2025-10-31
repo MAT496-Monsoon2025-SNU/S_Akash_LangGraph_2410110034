@@ -1,0 +1,116 @@
+import operator
+import os, getpass
+from typing import Annotated
+from typing_extensions import TypedDict
+
+from langchain_core.documents import Document
+from langchain_core.messages import HumanMessage, SystemMessage
+
+from langchain_community.document_loaders import WikipediaLoader
+from langchain_community.tools import TavilySearchResults
+
+from langchain_openai import ChatOpenAI
+
+from langgraph.graph import StateGraph, START, END
+
+llm = ChatOpenAI(model="gpt-4o", temperature=0) 
+
+def _set_env(var: str):
+    if not os.environ.get(var):
+        os.environ[var] = getpass.getpass(f"{var}: ")
+
+_set_env("TAVILY_API_KEY")
+
+class State(TypedDict):
+    question: str
+    answer: str
+    context: Annotated[list, operator.add]
+
+def search_web(state):
+    
+    """ Retrieve docs from web search """
+
+    # Search
+    tavily_search = TavilySearchResults(max_results=3)
+    search_docs = tavily_search.invoke(state['question'])
+
+     # Format
+    formatted_search_docs = "\n\n---\n\n".join(
+        [
+            f'<Document href="{doc["url"]}"/>\n{doc["content"]}\n</Document>'
+            for doc in search_docs
+        ]
+    )
+
+    return {"context": [formatted_search_docs]} 
+
+def search_wikipedia(state):
+    
+    """ Retrieve docs from wikipedia """
+
+    # Search
+    search_docs = WikipediaLoader(query=state['question'], 
+                                  load_max_docs=2).load()
+
+     # Format
+    formatted_search_docs = "\n\n---\n\n".join(
+        [
+            f'<Document source="{doc.metadata["source"]}" page="{doc.metadata.get("page", "")}"/>\n{doc.page_content}\n</Document>'
+            for doc in search_docs
+        ]
+    )
+
+    return {"context": [formatted_search_docs]} 
+
+def search_research(state):
+    """Retrieve papers from research sites."""
+    
+    query = f"site:arxiv.org OR site:researchgate.net OR site:scholar.google.com OR site:pubmed.ncbi.nlm.nih.gov {state['question']}"
+    tavily_search = TavilySearchResults(max_results=3)
+    research_docs = tavily_search.invoke(query)
+    
+    formatted_research_docs = "\n\n---\n\n".join(
+        [
+            f'<Paper href="{doc["url"]}">\n{doc["content"]}\n</Paper>'
+            for doc in research_docs
+        ]
+    )
+    
+    return {"context": [formatted_research_docs]}
+
+def generate_answer(state):
+    
+    """ Node to answer a question """
+
+    # Get state
+    context = state["context"]
+    question = state["question"]
+
+    # Template
+    answer_template = """Answer the question {question} using this context: {context}"""
+    answer_instructions = answer_template.format(question=question, 
+                                                       context=context)    
+    
+    # Answer
+    answer = llm.invoke([SystemMessage(content=answer_instructions)]+[HumanMessage(content=f"Answer the question.")])
+      
+    # Append it to state
+    return {"answer": answer}
+
+# Add nodes
+builder = StateGraph(State)
+
+builder.add_node("search_web",search_web)
+builder.add_node("search_wikipedia", search_wikipedia)
+builder.add_node("search_research", search_research)
+builder.add_node("generate_answer", generate_answer)
+
+# Flow
+builder.add_edge(START, "search_wikipedia")
+builder.add_edge(START, "search_web")
+builder.add_edge(START, "search_research")
+builder.add_edge("search_wikipedia", "generate_answer")
+builder.add_edge("search_web", "generate_answer")
+builder.add_edge("search_research", "generate_answer")
+builder.add_edge("generate_answer", END)
+graph = builder.compile()

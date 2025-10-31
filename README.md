@@ -74,3 +74,8 @@ Repo for my learnings from the LangGraph course as part of MAT496.
 ## Module 3: Video 5 (Time Travel)
 - Learnt the concepts of replaying and forking a particular checkpoint/step. Learnt how to use get_state_history() to view the full history of the graph's states. Forking can now re-invoke the graph from a previous checkpoint to use a new input for the same, without having to re-execute the graph entirely. Replays of a graph are just re-runs of a particular checkpoint, but without executing any nodes as the graph knows if that checkpoint has been executed before.
 - Changes: Extended and changed the arithmetic operation tools, then changed up the prompts to call multiple tools at once. 
+
+# Module 4
+## Module 4: Video 1 (Parallelization)
+- Learnt about parallel nodes which execute at the same time, used an add reducer to append the output of two nodes at the same time to actually implement this properly. There is also a default order for parallel nodes set by Langgraph, which we've changed here using a sorting function. Used Tavily to build a web search agent using parallel nodes for different types of searches. 
+- Changes: Added more nodes that run in parallel. Added two sub-nodes within a parallel node to extend this functionality. Implemented a research article search function using Tavily that goes through a particular list of research websites to fetch answers and added this as a node. Updated studio file parallelization.py to reflect the same.
