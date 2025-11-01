@@ -79,3 +79,7 @@ Repo for my learnings from the LangGraph course as part of MAT496.
 ## Module 4: Video 1 (Parallelization)
 - Learnt about parallel nodes which execute at the same time, used an add reducer to append the output of two nodes at the same time to actually implement this properly. There is also a default order for parallel nodes set by Langgraph, which we've changed here using a sorting function. Used Tavily to build a web search agent using parallel nodes for different types of searches. 
 - Changes: Added more nodes that run in parallel. Added two sub-nodes within a parallel node to extend this functionality. Implemented a research article search function using Tavily that goes through a particular list of research websites to fetch answers and added this as a node. Updated studio file parallelization.py to reflect the same.
+
+## Module 4: Video 2 (Sub-graphs)
+- Learnt how to use sub-graphs within the same graph to handle multiple states in the same graph. This is implemented using overlapping keys to pass specific info to sub-graphs and then collate all relevant information back to the entry graph. 
+- Changes: Created a new sub-graph, performance metrics, that outputs failure rate and total number of logs as metrics and linked this to the main graph along with the pre-existing other two. Added link to Langsmith trace for the same.  
