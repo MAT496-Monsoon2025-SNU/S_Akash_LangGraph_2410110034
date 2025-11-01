@@ -87,3 +87,7 @@ Repo for my learnings from the LangGraph course as part of MAT496.
 ## Module 4: Video 3 (Map-reduce)
 - Map-reduce is a framework wherein "map" breaks tasks down into subtasks and runs them parallely, and "reduce" combines the results of the parallel subtasks. 
 - Changes: Along with the pre-existing joke generation and best joke selection, I wrote code for pickup-line generation and best pickup line selection. Then ran this in parallel with the joke generator to pick the best overall joke/pickup line. Updated map-reduce.py to reflect these changes. Studio screenshot attached in the notebook.
+
+## Module 4: Video 4 (Research Assistant)
+- Using all the concepts covered in primarily this module and then previous modules (particularly parallelization, sub-graphs, map-reduce, dynamic breakpoints) a research assistant was created, wherein: first a topic is initialized, then a maximum number of analysts, then analysts are created by the LLM to match expertise in the topic. Questions are searched across varying sources using Tavily web scrapers, the web results for the same are then part of the context in the final answers. We save these QnAs to the interview state post which the LLM writes multiple passages as a summary based on the interview. 
+- Changes: Changed the prompts to analyze singularity/AGI and the potential negative effects of the same. Added a search_research function along with the pre-existing search_web and search_wikipedia functions using Tavily. Ran the trace and studio files, screenshot of which linked in notebook.

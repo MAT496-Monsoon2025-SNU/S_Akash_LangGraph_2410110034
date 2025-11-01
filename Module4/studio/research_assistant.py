@@ -200,6 +200,26 @@ def search_wikipedia(state: InterviewState):
 
     return {"context": [formatted_search_docs]} 
 
+def search_research(state):
+    """Retrieve papers from research sites."""
+    
+    structured_llm = llm.with_structured_output(SearchQuery)
+    search_query_object = structured_llm.invoke([search_instructions] + state['messages'])
+
+    query_text = search_query_object.search_query
+    
+    query = f"site:arxiv.org OR site:researchgate.net OR site:scholar.google.com OR site:pubmed.ncbi.nlm.nih.gov {query_text}"
+    
+    tavily_search = TavilySearchResults(max_results=3)
+    research_docs = tavily_search.invoke(query)
+    
+    formatted_research_docs = "\n\n---\n\n".join(
+        [
+            f'<Paper href="{doc["url"]}">\n{doc["content"]}\n</Paper>'
+            for doc in research_docs
+        ]
+    )
+
 # Generate expert answer
 answer_instructions = """You are an expert being interviewed by an analyst.
 
@@ -360,6 +380,7 @@ interview_builder = StateGraph(InterviewState)
 interview_builder.add_node("ask_question", generate_question)
 interview_builder.add_node("search_web", search_web)
 interview_builder.add_node("search_wikipedia", search_wikipedia)
+interview_builder.add_node("search_research", search_research)
 interview_builder.add_node("answer_question", generate_answer)
 interview_builder.add_node("save_interview", save_interview)
 interview_builder.add_node("write_section", write_section)
@@ -368,8 +389,10 @@ interview_builder.add_node("write_section", write_section)
 interview_builder.add_edge(START, "ask_question")
 interview_builder.add_edge("ask_question", "search_web")
 interview_builder.add_edge("ask_question", "search_wikipedia")
+interview_builder.add_edge("ask_question", "search_research")
 interview_builder.add_edge("search_web", "answer_question")
 interview_builder.add_edge("search_wikipedia", "answer_question")
+interview_builder.add_edge("search_research", "answer_question")
 interview_builder.add_conditional_edges("answer_question", route_messages,['ask_question','save_interview'])
 interview_builder.add_edge("save_interview", "write_section")
 interview_builder.add_edge("write_section", END)
