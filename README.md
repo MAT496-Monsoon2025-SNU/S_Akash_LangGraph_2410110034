@@ -83,3 +83,7 @@ Repo for my learnings from the LangGraph course as part of MAT496.
 ## Module 4: Video 2 (Sub-graphs)
 - Learnt how to use sub-graphs within the same graph to handle multiple states in the same graph. This is implemented using overlapping keys to pass specific info to sub-graphs and then collate all relevant information back to the entry graph. 
 - Changes: Created a new sub-graph, performance metrics, that outputs failure rate and total number of logs as metrics and linked this to the main graph along with the pre-existing other two. Added link to Langsmith trace for the same.  
+
+## Module 4: Video 3 (Map-reduce)
+- Map-reduce is a framework wherein "map" breaks tasks down into subtasks and runs them parallely, and "reduce" combines the results of the parallel subtasks. 
+- Changes: Along with the pre-existing joke generation and best joke selection, I wrote code for pickup-line generation and best pickup line selection. Then ran this in parallel with the joke generator to pick the best overall joke/pickup line. Updated map-reduce.py to reflect these changes. Studio screenshot attached in the notebook.
